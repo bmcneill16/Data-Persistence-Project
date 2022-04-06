@@ -5,27 +5,31 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
 using System;
+
 using Random = UnityEngine.Random;
 
 public class MainManager : MonoBehaviour
 {
-    public static MainManager instance;
+    //public static MainManager instance;
     public Brick BrickPrefab;
-    public int LineCount = 6;
-   
     public Rigidbody Ball;
     public Text ScoreText;
+    public Text NameText;
+    public Text BestScore;
     public GameObject GameOverText;
-    public string playerName;
+    
+    public int LineCount = 6;
     private bool m_Started = false;
     private int m_Points;
     
     private bool m_GameOver = false;
 
     
+
     // Start is called before the first frame update
     void Start()
     {
+        
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -44,9 +48,7 @@ public class MainManager : MonoBehaviour
 
     private void Awake()
     {
-        LoadName();
-        Debug.Log("Player Name: " + playerName);
-
+        DisplayNameAndBestScore();        
     }
 
     private void Update()
@@ -84,33 +86,9 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
-    [Serializable]
-    class SaveData
-    {
-        public string playerName;
-    }
     
-
-    public void SaveName()
+    public void DisplayNameAndBestScore()
     {
-        SaveData data = new SaveData();
-        data.playerName = playerName;
-
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + " /savefile.json", json);
+        NameText.text = "Name: " + SaveManager.instance.playerName;
     }
-
-    public void LoadName()
-    {
-        string path = Application.persistentDataPath + " /savefile.json";
-        if (File.Exists(path))
-        {
-            string json = File.ReadAllText(path);
-            SaveData data = JsonUtility.FromJson<SaveData>(path);
-
-            playerName = data.playerName;
-        }
-
-    }
-
 }

@@ -8,18 +8,21 @@ public class UIMainMenu : MonoBehaviour
 {
     public TMP_InputField inputField;
    
+    public void NewPlayerName(string name)
+    {
+        SaveManager.instance.playerName = name;
+    }
     // Start is called before the first frame update
     void Start()
     {
         inputField.interactable = true;
-        MainManager.instance.playerName = inputField.GetComponent<TMP_InputField>().text;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        SavePlayerName();
     }
 
     public void StartNew()
@@ -30,14 +33,18 @@ public class UIMainMenu : MonoBehaviour
 
     public void GetPlayerName()
     {
-        string playerName = inputField.GetComponent<TMP_InputField>().text;
+        SaveManager.instance.playerName = inputField.GetComponent<TMP_InputField>().text;
         
-        Debug.Log("Playername is " + playerName);
+        
+
     }
 
     public void SavePlayerName()
     {
-        MainManager.instance.SaveName();
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SaveManager.instance.SaveName();
+        }
     }
 
 }
