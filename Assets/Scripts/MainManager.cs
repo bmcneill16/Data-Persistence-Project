@@ -10,30 +10,28 @@ using Random = UnityEngine.Random;
 
 public class MainManager : MonoBehaviour
 {
-    //public static MainManager instance;
+    public static MainManager instance;
     public Brick BrickPrefab;
     public Rigidbody Ball;
     public Text ScoreText;
     public Text NameText;
     public Text BestScore;
     public GameObject GameOverText;
-    
     public int LineCount = 6;
     private bool m_Started = false;
     private int m_Points;
-    
     private bool m_GameOver = false;
 
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
-        
-        int[] pointCountArray = new [] {1,1,2,2,5,5};
+
+        int[] pointCountArray = new[] { 1, 1, 2, 2, 5, 5 };
         for (int i = 0; i < LineCount; ++i)
         {
             for (int x = 0; x < perLine; ++x)
@@ -48,7 +46,8 @@ public class MainManager : MonoBehaviour
 
     private void Awake()
     {
-        DisplayNameAndBestScore();        
+        DisplayName();
+        SaveManager.instance.LoadScore();
     }
 
     private void Update()
@@ -73,6 +72,19 @@ public class MainManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+
+        if (SaveManager.instance.bestScore == 0)
+        {
+            SaveManager.instance.bestScore = m_Points;
+            SaveManager.instance.SaveScore();
+        }
+        else if (m_Points > SaveManager.instance.bestScore)
+        {
+            SaveManager.instance.bestScore = m_Points;
+            SaveManager.instance.SaveScore();
+        }
+
+        DisplayBestScore();
     }
 
     void AddPoint(int point)
@@ -83,12 +95,26 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+       
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
-    
-    public void DisplayNameAndBestScore()
+
+    public void DisplayName()
     {
-        NameText.text = "Name: " + SaveManager.instance.playerName;
+        if(m_GameOver == false)
+        {
+            NameText.text = "Name: " + SaveManager.instance.playerName;
+        }
+        
     }
+
+    public void DisplayBestScore()
+    {
+        if (m_GameOver == false)
+        {
+            BestScore.text = "Best Score: " + SaveManager.instance.bestScore;
+        }
+    }
+    
 }

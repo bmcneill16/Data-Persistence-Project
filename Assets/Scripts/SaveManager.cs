@@ -9,11 +9,12 @@ public class SaveManager : MonoBehaviour
 
     public static SaveManager instance;
     public string playerName;
-    public int bestScore;
+    public int bestScore = 0;
+    
     // Start is called before the first frame update
     void Start()
     {
-        //instance = this;
+        
     }
 
     // Update is called once per frame
@@ -40,6 +41,7 @@ public class SaveManager : MonoBehaviour
     {
         public string playerName;
         public int bestScore;
+        
     }
 
 
@@ -77,7 +79,7 @@ public class SaveManager : MonoBehaviour
     public void LoadScore()
     {
         string path = Application.persistentDataPath + " /savefile.json";
-        if(File.Exists(path))
+        if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(path);
@@ -85,4 +87,5 @@ public class SaveManager : MonoBehaviour
             bestScore = data.bestScore;
         }
     }
+
 }
