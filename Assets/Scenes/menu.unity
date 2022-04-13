@@ -550,7 +550,6 @@ GameObject:
   m_Component:
   - component: {fileID: 981458903}
   - component: {fileID: 981458902}
-  - component: {fileID: 981458904}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: Untagged
@@ -571,6 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: 
+  bestScore: 0
 --- !u!4 &981458903
 Transform:
   m_ObjectHideFlags: 0
@@ -585,24 +585,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &981458904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981458901}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d110623a642692246a42fbc2d8d89884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BrickPrefab: {fileID: 0}
-  LineCount: 6
-  Ball: {fileID: 0}
-  ScoreText: {fileID: 0}
-  GameOverText: {fileID: 0}
-  playerName: 
 --- !u!1 &1111142117
 GameObject:
   m_ObjectHideFlags: 0

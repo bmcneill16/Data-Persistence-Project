@@ -8,7 +8,7 @@ public class SaveManager : MonoBehaviour
 {
 
     public static SaveManager instance;
-    public string playerName;
+    public string playerName = "blank";
     public int bestScore = 0;
     
     // Start is called before the first frame update
